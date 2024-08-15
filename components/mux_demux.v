@@ -1,4 +1,4 @@
-`timescale 1ns/1ps
+`timescale 1ns/10ps
 
 module MUX_4(
     input[7:0] I0, input[7:0] I1, input[7:0] I2, input[7:0] I3,
@@ -30,8 +30,8 @@ module MUX_16(
 endmodule
 
 module DEMUX_4(
-    input[7:0] IN, input S0, input S1,
-    output[7:0] O0, output[7:0] O1, output[7:0] O2, output[7:0] O3
+    input IN, input S0, input S1,
+    output O0, output O1, output O2, output O3
 );
     specify
         (S0, S1 *> O0, O1, O2, O3) = 12;
@@ -42,4 +42,21 @@ module DEMUX_4(
     assign O1 = (S0) & (~S1) ? IN : 0;
     assign O2 = (~S0) & (S1) ? IN : 0;
     assign O3 = (S0) & (S1) ? IN : 0;
+endmodule
+
+module DEMUX_16(
+    input S0, input S1, input S2, input S3, input IN,
+    output O0, output O1, output O2, output O3,
+    output O4, output O5, output O6, output O7,
+    output O8, output O9, output O10, output O11,
+    output O12, output O13, output O14, output O15
+);
+    wire  in_0, in_1, in_2, in_3;
+
+    DEMUX_4 demux_0(in_0, S0, S1, O0, O1, O2, O3);
+    DEMUX_4 demux_1(in_1, S0, S1, O4, O5, O6, O7);
+    DEMUX_4 demux_2(in_2, S0, S1, O8, O9, O10, O11);
+    DEMUX_4 demux_3(in_3, S0, S1, O12, O13, O14, O15);
+
+    DEMUX_4 demux_4(IN, S3, S2, in_0, in_1, in_2, in_3);
 endmodule

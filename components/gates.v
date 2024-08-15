@@ -1,30 +1,30 @@
-`timescale 1ns/1ps
+`timescale 1ns/10ps
 
-module NOT(input A, output B);
+module NOT(output B, input A);
     not #15 (B, A);
 endmodule
 
-module AND(input A, input B, output C);
+module AND(output C, input A, input B);
     and #(15, 20) (C, A, B);
 endmodule
 
 
-module NAND(input A, input B, output C);
+module NAND(output C, input A, input B);
     nand #15 (C, A, B);
 endmodule
 
 
-module OR(input A, input B, output C);
+module OR(output C, input A, input B);
     or #(15, 22) (C, A, B);
 endmodule
 
 
-module NOR(input A, input B, output C);
+module NOR(output C, input A, input B);
     nor #15 (C, A, B);
 endmodule
 
 
-module XOR(input A, input B, output C);
+module XOR(output C, input A, input B);
     xor (C, A, B);
     
     specify
@@ -36,6 +36,6 @@ module XOR(input A, input B, output C);
 endmodule
 
 
-module XNOR(input A, input B, output C);
+module XNOR(output C, input A, input B);
     xnor #30 (C, A, B);
 endmodule

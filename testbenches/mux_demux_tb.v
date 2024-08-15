@@ -1,4 +1,4 @@
-`timescale 1ns/1ps
+`timescale 1ns/10ps
 
 module MUX_4_TB();
     reg [7:0]r1, r2, r3, r4;
