@@ -100,25 +100,22 @@ module CHIP(
      * Executing Instructions
      * ###############################
      * 
-     * 4 operations per instruction -
-     * - Decode
-     * - Read
-     * - Operate
-     * - Write
+     * 2 operations per instruction -
+     * - Decode and Read
+     * - Operate and Write
      */
     
     // Inst counter outputs
-    wire INST_S0, INST_S1;
-    // Inst counter enable
+    // and Inst counter enable
+    wire INST_S0, INST_S1, INST_S0_BAR;
     wire INST_COUNTER_ENABLE;
 
-    TWO_BIT_COUNTER inst_counter(
-        CLK, INST_COUNTER_ENABLE, INST_S0, INST_S1
+    ONE_BIT_COUNTER inst_counter(
+        CLK, INST_COUNTER_ENABLE, R_ENABLE_WRITE
     );
-
-    // Write-Enable is always true for instructions (for now)
-    AND write_enable(R_ENABLE_WRITE, INST_S1, INST_S0);
     
+    // Arithmetic-Logic Unit
+    ALU alu(OPCODE[3:0], R_OUTPUT_0, R_OUTPUT_1, R_INPUT);
 endmodule
 
 
